@@ -441,8 +441,9 @@ class NewAssetApprovalZone(models.Model):
         ordering = ['-c_time']
 
 
+"""  已添加至projects App
 class AllProjects(models.Model):
-    """项目总览"""
+    项目总览（已添加至projects App）
 
     project_type_choice = (
         ('bridge', '桥梁项目'),
@@ -476,6 +477,7 @@ class AllProjects(models.Model):
     class Meta:
         verbose_name = '项目总览'
         verbose_name_plural = '项目总览'
+"""
 
 
 class Member(models.Model):

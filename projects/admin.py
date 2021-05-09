@@ -24,4 +24,18 @@ class TestAdmin(admin.ModelAdmin):
     list_display = ['test']
 
 
+class AllProjectsAdmin(admin.ModelAdmin):
+    list_display = ['project_type', 'project_name', 'charge_person', 'members', 'project_status',
+                    'project_status_percent', 'former_status_percent', 'start_day', 'expect_finished_day', 'memo']
+
+    def members(self, obj):
+        return [bt.name for bt in obj.group_members.all()]
+    members.short_description = '项目成员'
+    filter_horizontal = ['group_members']
+    list_filter = ['project_type', 'project_status']
+    list_per_page = 10
+
+
 admin.site.register(models.Test, TestAdmin)
+admin.site.register(models.AllProjects, AllProjectsAdmin)
+

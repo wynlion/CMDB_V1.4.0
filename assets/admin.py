@@ -47,6 +47,7 @@ class AssetAdmin(admin.ModelAdmin):
     list_per_page = 10
 
 
+"""  已添加至projects App
 class AllProjectsAdmin(admin.ModelAdmin):
     list_display = ['project_type', 'project_name', 'charge_person', 'members', 'project_status',
                     'project_status_percent', 'former_status_percent', 'start_day', 'expect_finished_day', 'memo']
@@ -57,6 +58,7 @@ class AllProjectsAdmin(admin.ModelAdmin):
     filter_horizontal = ['group_members']
     list_filter = ['project_type', 'project_status']
     list_per_page = 10
+"""
 
 
 class ReportResource(resources.ModelResource):
@@ -227,7 +229,7 @@ admin.site.register(models.NIC)
 admin.site.register(models.RAM)
 admin.site.register(models.EventLog, EventLogAdmin)
 admin.site.register(models.NewAssetApprovalZone, NewAssetAdmin)
-admin.site.register(models.AllProjects, AllProjectsAdmin)
+# admin.site.register(models.AllProjects, AllProjectsAdmin)
 admin.site.register(models.ReportLists, ReportListsAdmin)
 admin.site.register(models.LogFile, LogFileAdmin)
 admin.site.register(models.Member, MemberAdmin)
