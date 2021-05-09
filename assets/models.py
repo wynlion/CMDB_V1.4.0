@@ -480,8 +480,9 @@ class AllProjects(models.Model):
 """
 
 
+"""  已添加至projects App
 class Member(models.Model):
-    """成员所属"""
+    成员所属
 
     section_type_choice = (
         ('detection', '检测部'),
@@ -511,6 +512,7 @@ class Member(models.Model):
     class Meta:
         verbose_name = '项目成员'
         verbose_name_plural = "项目成员"
+"""
 
 
 class ReportLists(models.Model):

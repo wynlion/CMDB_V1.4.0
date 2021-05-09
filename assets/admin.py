@@ -68,10 +68,12 @@ class ReportResource(resources.ModelResource):
         fields = ('id', 'project_type', 'project_type', 'report_name', 'report_date', 'report_number')
 
 
+"""  已添加至projects App
 class MemberAdmin(admin.ModelAdmin):
     list_display = ['name', 'belong_to_section', 'belong_to_group']
     list_filter = ['belong_to_section', 'belong_to_group']
     list_per_page = 10
+"""
 
 
 class ReportListsAdmin(ImportExportModelAdmin):
@@ -232,7 +234,7 @@ admin.site.register(models.NewAssetApprovalZone, NewAssetAdmin)
 # admin.site.register(models.AllProjects, AllProjectsAdmin)
 admin.site.register(models.ReportLists, ReportListsAdmin)
 admin.site.register(models.LogFile, LogFileAdmin)
-admin.site.register(models.Member, MemberAdmin)
+# admin.site.register(models.Member, MemberAdmin)
 admin.site.register(models.Attachment, AttachmentAdmin)
 # admin.site.register(models.Article, ArticleAdmin)
 # admin.site.register(models.ReadNum, ReadNumAdmin)
