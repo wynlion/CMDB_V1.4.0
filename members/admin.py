@@ -21,6 +21,8 @@ from django.contrib.admin import widgets
 
 
 class StaffsAdmin(admin.ModelAdmin):
+    list_display = ['name', 'section', 'tel']
+    list_filter = ['section']
     list_per_page = 10
 
 

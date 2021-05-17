@@ -27,6 +27,8 @@ urlpatterns = [
     path('assets/', include('assets.urls')),
     path('attachment/<int:pk>/', AttachmentView.as_view(), name='attachment'),
     path('projects/', include('projects.urls')),
+    path('members/', include('members.urls')),
+    path('files', include('files.urls')),
     # path('media/', views.get_logfile),
     # path(r'media/file', views.get_logfile),
     # re_path(r'media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
