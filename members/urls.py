@@ -1,4 +1,4 @@
-from django .urls import path
+from django import urls
 from members import views
 
 app_name = 'members'

@@ -63,14 +63,16 @@ def detail(request, asset_id):
     return render(request, 'assets/detail.html', locals())
 
 
+"""
 def allprojects(request):
-    """
+    此处注释
     项目总览示意图
     :param request:
     :return:
-    """
+    此处注释
     projects = models.AllProjects.objects.all()
     return render(request, 'assets/allprojects.html', locals())
+"""
 
 
 @csrf_exempt

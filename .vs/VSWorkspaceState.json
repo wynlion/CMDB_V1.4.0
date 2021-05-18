@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\assets"
+    "\\assets",
+    "\\projects"
   ],
-  "SelectedNode": "\\assets\\models.py",
-  "PreviewInSolutionExplorer": true
+  "SelectedNode": "\\assets\\admin.py",
+  "PreviewInSolutionExplorer": false
 }
