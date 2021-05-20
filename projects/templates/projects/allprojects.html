@@ -1,0 +1,150 @@
+{% extends 'base.html'  %}
+{% load static %}
+{% block title  %}项目总览{% endblock  %}
+
+{% block css %}
+     <link rel="stylesheet" href="{% static 'adminlet-2.4.10/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css' %}">
+{% endblock %}
+
+{% block breadcrumb %}
+<!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        项目总览
+        <small>projects list</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li class="active">项目总览</li>
+      </ol>
+    </section>
+{% endblock %}
+
+{% block content %}
+
+   <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+
+        <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">项目总览<small>(所有项目)</small></h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+
+            <table id="assets_table" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>项目类型</th>
+                        <th>项目名称</th>
+                        <th>项目负责人</th>
+                        <th>项目状态</th>
+                        <th>项目进度%</th>
+                        <th>昨日进度%</th>
+                        <th>项目起始日期</th>
+                        <th>预计完成日期</th>
+                        <th>备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                {% for project in projects %}
+
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+
+                        {% if project.project_type == 'bridge' %}
+                          <td class="text-green text-bold">{{ project.get_project_type_display }}</td>
+                        {% elif project.project_type == "road" %}
+                          <td class="text-yellow text-bold">{{ project.get_project_type_display }}</td>
+                        {% elif project.project_type == "experiment" %}
+                          <td class="text-blue text-bold">{{ project.get_project_type_display }}</td>
+                        {% elif project.project_type == "others" %}
+                          <td class="text-red text-bold">{{ project.get_project_type_display }}</td>
+                        {% endif %}
+
+                        <td>{{ project.project_name }}</td>
+
+                        <td>{{ project.charge_person }}</td>
+
+                        {% if project.project_status == 0 %}
+                          <td><label class="label label-success">{{ project.get_project_status_display }}</label></td>
+                        {% elif project.project_status == 1 %}
+                          <td><label class="label label-warning">{{ project.get_project_status_display }}</label></td>
+                        {% elif project.project_status == 2 %}
+                          <td><label class="label label-default">{{ project.get_project_status_display }}</label></td>
+                        {% elif project.project_status == 3 %}
+                          <td><label class="label label-danger">{{ project.get_project_status_display }}</label></td>
+                        {% elif project.project_status == 4 %}
+                          <td><label class="label label-info">{{ project.get_project_status_display }}</label></td>
+                        {% endif %}
+
+                        <td> {{ project.project_status_percent }}</td>
+
+                        <td> {{ project.former_status_percent }}</td>
+
+                        <td>{{ project.start_day }}</td>
+
+                        <td>{{ project.expect_finished_day }}</td>
+
+                        <td>{{ project.memo }}</td>
+
+                    </tr>
+
+                {% empty %}
+                <tr>没有数据</tr>
+                {% endfor %}
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>序号</th>
+                        <th>项目类型</th>
+                        <th>项目名称</th>
+                        <th>项目负责人</th>
+                        <th>项目状态</th>
+                        <th>项目进度%</th>
+                        <th>昨日进度%</th>
+                        <th>项目起始日期</th>
+                        <th>预计完成日期</th>
+                        <th>备注</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
+        </div>
+    <!-- /.col -->
+      </div>
+    <!-- /.row -->
+    </section>
+
+{% endblock %}
+
+{% block script %}
+
+<script src="{% static 'adminlet-2.4.10/bower_components/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'adminlet-2.4.10/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
+
+<script>
+
+$(function () {
+        $('#assets_table').DataTable({
+          "paging": true,       <!-- 允许分页 -->
+          "lengthChange": true, <!-- 允许改变每页显示的行数 -->
+          "searching": true,    <!-- 允许内容搜索 -->
+          "ordering": true,     <!-- 允许排序 -->
+          "info": true,         <!-- 显示信息 -->
+          "autoWidth": false    <!-- 固定宽度 -->
+        });
+      });
+
+</script>
+
+{% endblock %}
+
