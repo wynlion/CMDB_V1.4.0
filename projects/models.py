@@ -64,15 +64,15 @@ class Member(models.Model):
     )
 
     group_type_choice = (
-        ('bridge-1', '桥梁1组'),
-        ('bridge-2', '桥梁2组'),
-        ('bridge-petrol', '桥梁巡检组'),
+        ('bridge_1', '桥梁1组'),
+        ('bridge_2', '桥梁2组'),
+        ('bridge_petrol', '桥梁巡检组'),
         ('road', '道路组'),
         ('tunnel', '隧道组'),
         ('material', '材料科研组'),
     )
 
-    name = models.CharField('项目成员', max_length=64, unique=True)
+    name = models.CharField('小组成员', max_length=64, unique=True)
     belong_to_section = models.CharField(choices=section_type_choice, max_length=64, default='', verbose_name='所属部门')
     belong_to_group = models.CharField(choices=group_type_choice, max_length=64, default='', verbose_name='所属小组')
     c_day = models.DateField('创建日期', auto_now_add=True)
@@ -81,5 +81,5 @@ class Member(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = '项目成员'
-        verbose_name_plural = "项目成员"
+        verbose_name = '小组成员'
+        verbose_name_plural = "小组成员"

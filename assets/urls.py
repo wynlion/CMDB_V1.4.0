@@ -10,5 +10,6 @@ urlpatterns = [
     path('index/', views.index, name='index'),
     path('detail/<int:asset_id>/', views.detail, name='detail'),
     # path('allprojects/', views.allprojects, name='allprojects'),
-    path('', views.dashboard),
+    # path('', views.dashboard),
+    path('', views.attachements, name='attachments'),
 ]

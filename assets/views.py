@@ -119,6 +119,15 @@ class AttachmentView(DetailView):
         return response
 
 
+def attachements(request):
+    """
+    规范总览
+    :param request:
+    :return:
+    """
+    return render(request, 'assets/attachments.html', locals())
+
+
 """新增测试功能"""
 
 """  待开发

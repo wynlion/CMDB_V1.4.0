@@ -84,7 +84,7 @@ class ReportListsAdmin(ImportExportModelAdmin):
     list_filter = ['project_type', 'report_date']
     list_per_page = 10
     resource_class = ReportResource
-    actions = ['print_selected_reports', 'export_selected_excel', 'export_to_word']
+    actions = ['print_selected_reports', 'export_selected_excel', 'export_to_word', ]
 
     def export_selected_excel(self, request, queryset):
         meta = self.model._meta  # 用于定义文件名, 格式为: app名.模型类名
@@ -186,8 +186,8 @@ class DownloadFileWidget(widgets.AdminFileWidget):
 
 
 class AttachmentAdmin(admin.ModelAdmin):
-    list_display = ['id', 'standard_type', 'box_type', 'number', 'name', 'standard_ID',
-                    'memo', 'update_situation', '_get_download_url']
+    list_display = ['standard_type', 'box_type', 'number', 'name', 'standard_ID',
+                    'memo', 'update_type', '_get_download_url', 'file_type', 'id']
     search_fields = ['name', 'standard_ID']
     list_per_page = 10
     list_filter = ['standard_type']

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import pre_save
 from multiselectfield import MultiSelectField
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
@@ -515,6 +516,56 @@ class Member(models.Model):
 """
 
 
+def increment_report_number():
+    last_report_number = ReportLists.objects.all().order_by('id').last()
+    # last_djjc_number = ReportLists.objects.filter(project_type='DJJC').count()
+    # last_report_number = ReportLists.objects.all().order_by('id').last()
+    if not last_report_number:
+        return 'MAG0001'
+    report_number = last_report_number.report_number
+    report_int = int(report_number.split('MAG')[-1])
+    width = 4
+    new_report_int = report_int + 1
+    formatted = (width - len(str(new_report_int))) * "0" + str(new_report_int)
+    new_report_no = 'MAG' + str(formatted)
+    return new_report_no
+
+
+def jzjc_report_number():
+    last_report_number = ReportLists.objects.filter(project_type='JZJC').last()
+    if not last_report_number:
+        return 'JZJC0001'
+    report_number = last_report_number.report_number
+    report_int = int(report_number.split('JZJC')[-1])
+    width = 4
+    new_report_int = report_int + 1
+    formatted = (width - len(str(new_report_int))) * "0" + str(new_report_int)
+    new_report_no = 'JZJC' + str(formatted)
+    return new_report_no
+
+
+def djjc_report_number():
+    # last_report_number = ReportLists.objects.all().order_by('id').last()
+    last_report_number = ReportLists.objects.filter(project_type='DJJC').last()
+    if not last_report_number:
+        return 'DJJC0001'
+    report_number = last_report_number.report_number
+    report_int = int(report_number.split('DJJC')[-1])
+    width = 4
+    new_report_int = report_int + 1
+    formatted = (width - len(str(new_report_int))) * "0" + str(new_report_int)
+    new_report_no = 'DJJC' + str(formatted)
+    return new_report_no
+
+
+def report_no():
+    report_type = ReportLists.project_type
+    if report_type == '基桩检测':
+        return jzjc_report_number()
+    elif report_type == '地基基础':
+        return djjc_report_number()
+
+
 class ReportLists(models.Model):
     """报告总览"""
 
@@ -531,17 +582,24 @@ class ReportLists(models.Model):
         ('ZHXJC', '综合性检测'),
         ('ZXBG', '咨询报告'),
     )
+
     project_type = models.CharField(choices=project_type_choice, max_length=64, default='', verbose_name='报告类型')
+
+    def save(self, *args, **kwargs):
+        super(ReportLists, self).save(*args, **kwargs)
+    # project_type_name = project_type
     project_name = models.CharField(max_length=64, unique=False, default='', verbose_name='项目名称')
     commissioned_units = models.CharField(max_length=64, unique=False, default='', verbose_name='委托单位')
     report_name = models.CharField(max_length=64, unique=False, default='', verbose_name='报告名称')
     report_date = models.DateField(null=True, blank=True, verbose_name='报告日期')
-    report_number = models.CharField(max_length=64, unique=True, default='', verbose_name='报告编号')
+    report_number = models.CharField(max_length=500, unique=True, default='',
+                                     blank=True, null=True, verbose_name='报告编号')
     seal_type = (
         ('detectSeal', '检测专用章'),
         ('CMASeal', 'CMA专用章'),
         ('officialSeal', '公章'),
     )
+
     seal = MultiSelectField(choices=seal_type, default='', verbose_name='盖章类型')
     report_type_choice = (
         ('report', '报告'),
@@ -552,6 +610,7 @@ class ReportLists(models.Model):
     )
     report = MultiSelectField(choices=report_type_choice, default='', verbose_name='存档资料')
     memo = models.TextField('备注', null=True, blank=True)
+    file = models.FileField(upload_to='static/file', null=True, verbose_name='上传文件')
 
     def __str__(self):
         return '%s: %s: %s: %s: %s' % (self.project_name, self.commissioned_units, self.report_name, self.report_date,
@@ -604,6 +663,20 @@ class Attachment(models.Model):
         ('1', '①'), ('2', '②'), ('3', '③'), ('4', '④'), ('5', '⑤'), ('6', '⑥'),
         ('7', '⑦'), ('8', '⑧'), ('9', '⑨'), ('10', '⑩'),
     )
+
+    file_type_choice = (
+        ('word文档_07', 'docx'),
+        ('excel文档_07', 'xlsx'),
+        ('图片_1', 'JPEG'),
+        ('图片_2', 'PNG'),
+    )
+
+    update_type_choice = (
+        ('status_1', '已更新'),
+        ('status_2', '未更新'),
+        ('status_1', '已作废'),
+    )
+
     standard_type = models.CharField(choices=standard_type_choice, max_length=64, default='', verbose_name='类别')
     box_type = models.CharField(choices=box_type_choice, max_length=4, default='', verbose_name='所在盒子')
     number = models.CharField(max_length=4, default='', verbose_name='序号')
@@ -611,8 +684,10 @@ class Attachment(models.Model):
     standard_ID = models.CharField(max_length=64, unique=True, default='', verbose_name='标准编号')
     in_standard_ID = models.CharField(max_length=64, unique=True, default='', verbose_name='公司内部编号')
     memo = models.TextField('备注', null=True, blank=True)
-    update_situation = models.CharField(max_length=64, default='', verbose_name='更新情况')
+    update_type = models.CharField(choices=update_type_choice, max_length=8, default='', verbose_name='更新情况')
     file = models.FileField(upload_to='static/file', null=True, verbose_name='上传规范')
+    file_type = models.CharField(choices=file_type_choice, max_length=64, default='', verbose_name='文件类型')
+    # file_name = str(name) + '.' + str(file_type)
 
     class Meta:
         verbose_name = '规范总览'

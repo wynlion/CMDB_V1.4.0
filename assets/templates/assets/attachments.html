@@ -38,15 +38,13 @@
                 <thead>
                     <tr>
                         <th>序号</th>
-                        <th>项目类型</th>
-                        <th>项目名称</th>
-                        <th>项目负责人</th>
-                        <th>项目状态</th>
-                        <th>项目进度%</th>
-                        <th>昨日进度%</th>
-                        <th>项目起始日期</th>
-                        <th>预计完成日期</th>
+                        <th>类别</th>
+                        <th>所在盒子</th>
+                        <th>规范标准名称</th>
+                        <th>标准编号</th>
+                        <th>更新情况</th>
                         <th>备注</th>
+                        <th>下载</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,14 +54,12 @@
                     <tr>
                         <td>{{ forloop.counter }}</td>
 
-                        {% if project.project_type == 'bridge' %}
+                        {% if assets.update_type == 'status_1' %}
                           <td class="text-green text-bold">{{ project.get_project_type_display }}</td>
                         {% elif project.project_type == "road" %}
                           <td class="text-yellow text-bold">{{ project.get_project_type_display }}</td>
                         {% elif project.project_type == "experiment" %}
                           <td class="text-blue text-bold">{{ project.get_project_type_display }}</td>
-                        {% elif project.project_type == "others" %}
-                          <td class="text-red text-bold">{{ project.get_project_type_display }}</td>
                         {% endif %}
 
                         <td>{{ project.project_name }}</td>
@@ -102,15 +98,13 @@
                 <tfoot>
                     <tr>
                         <th>序号</th>
-                        <th>项目类型</th>
-                        <th>项目名称</th>
-                        <th>项目负责人</th>
-                        <th>项目状态</th>
-                        <th>项目进度%</th>
-                        <th>昨日进度%</th>
-                        <th>项目起始日期</th>
-                        <th>预计完成日期</th>
+                        <th>类别</th>
+                        <th>所在盒子</th>
+                        <th>规范标准名称</th>
+                        <th>标准编号</th>
+                        <th>更新情况</th>
                         <th>备注</th>
+                        <th>下载</th>
                     </tr>
                 </tfoot>
             </table>
