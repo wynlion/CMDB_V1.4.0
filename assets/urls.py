@@ -11,5 +11,6 @@ urlpatterns = [
     path('detail/<int:asset_id>/', views.detail, name='detail'),
     # path('allprojects/', views.allprojects, name='allprojects'),
     # path('', views.dashboard),
-    path('', views.attachements, name='attachments'),
+    path('attachements/', views.attachements, name='attachments')
+    # path('', views.attachements, name='attachments'),
 ]

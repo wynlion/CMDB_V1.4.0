@@ -206,7 +206,7 @@ class AttachmentAdmin(admin.ModelAdmin):
         return super(AttachmentAdmin, self).formfield_for_dbfield(db_field, **kwargs)
 
     def _get_download_url(self, instance):
-        return format_html('<a href="{}">{}</a>', reverse('attachment', kwargs={'pk': instance.id}), instance.name)
+        return format_html('<a href="{}">{}</a>', reverse('attachment', kwargs={'pk': instance.id}), "下载")
 
     _get_download_url.short_description = '下载文件'
 

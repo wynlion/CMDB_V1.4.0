@@ -121,10 +121,11 @@ class AttachmentView(DetailView):
 
 def attachements(request):
     """
-    规范总览
+    规范总览示意图
     :param request:
     :return:
     """
+    attachments = models.Attachment.objects.all()
     return render(request, 'assets/attachments.html', locals())
 
 

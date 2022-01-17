@@ -674,7 +674,7 @@ class Attachment(models.Model):
     update_type_choice = (
         ('status_1', '已更新'),
         ('status_2', '未更新'),
-        ('status_1', '已作废'),
+        ('status_3', '已作废'),
     )
 
     standard_type = models.CharField(choices=standard_type_choice, max_length=64, default='', verbose_name='类别')
