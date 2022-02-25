@@ -42,6 +42,10 @@ class MemberAdmin(admin.ModelAdmin):
     list_per_page = 10
 
 
+class DriverAdmin(admin.ModelAdmin):
+    list_display = ['name', 'mobile_numbers']
+
+
 class VehicleUseAdmin(admin.ModelAdmin):
     list_display = ['project_type', 'project_name', 'destination', 'charge_person']
     list_filter = ['project_type']
@@ -51,5 +55,6 @@ class VehicleUseAdmin(admin.ModelAdmin):
 admin.site.register(models.Test, TestAdmin)
 admin.site.register(models.AllProjects, AllProjectsAdmin)
 admin.site.register(models.Member, MemberAdmin)
+admin.site.register(models.Driver, DriverAdmin)
 admin.site.register(models.VehicleUse, VehicleUseAdmin)
 
