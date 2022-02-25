@@ -44,6 +44,7 @@ class MemberAdmin(admin.ModelAdmin):
 
 class DriverAdmin(admin.ModelAdmin):
     list_display = ['name', 'mobile_numbers']
+    list_per_page = 20
 
 
 class VehicleUseAdmin(admin.ModelAdmin):
