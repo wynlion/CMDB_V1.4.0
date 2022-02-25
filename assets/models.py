@@ -207,7 +207,7 @@ class IDC(models.Model):
     )
     name = models.CharField(max_length=64, unique=True, default='', verbose_name="实验室名称")
     item = models.CharField(max_length=128, unique=False, default='', verbose_name='设备名称')
-    apparatus_status = models.SmallIntegerField(choices=apparatus_status_type,default=0, verbose_name='设备状态')
+    apparatus_status = models.SmallIntegerField(choices=apparatus_status_type, default=0, verbose_name='设备状态')
     memo = models.CharField(max_length=128, blank=True, null=True, verbose_name='备注')
     apparatus_available = models.BooleanField('是否可用', default=False)
 

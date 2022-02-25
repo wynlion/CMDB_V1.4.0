@@ -83,3 +83,40 @@ class Member(models.Model):
     class Meta:
         verbose_name = '小组成员'
         verbose_name_plural = "小组成员"
+
+
+class Driver(models.Model):
+    """司机信息"""
+
+    name = models.CharField('司机姓名', max_length=64, unique=True)
+    mobile_numbers = models.CharField('电话号码', max_length=64, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = '司机信息'
+        verbose_name_plural = '司机信息'
+
+
+class VehicleUse(models.Model):
+    """用车记录"""
+
+    project_type_choice = (
+        ('bridge', '桥梁项目'),
+        ('tunnel', '隧道项目'),
+        ('road', '道路项目'),
+        ('others', '其他项目'),
+    )
+
+    project_type = models.CharField(choices=project_type_choice, max_length=64, default='bridge', verbose_name='项目类型')
+    project_name = models.CharField(max_length=64, unique=False, default='', verbose_name='出车项目')  # 具体项目名称，不唯一
+    destination = models.CharField(max_length=64, unique=False, default='', verbose_name='出车目的地')
+    charge_person = models.CharField(max_length=8, unique=False, default='', verbose_name='用车人')
+
+    def __str__(self):
+        return self.project_type_choice
+
+    class Meta:
+        verbose_name = '用车使用记录'
+        verbose_name_plural = '用车使用记录'

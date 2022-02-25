@@ -211,6 +211,14 @@ class AttachmentAdmin(admin.ModelAdmin):
     _get_download_url.short_description = '下载文件'
 
 
+class DeviceListAdmin(admin.ModelAdmin):
+    list_display = ['device_number', 'device_name', 'device_type', 'size', 'accuracy', 'out_sn', 'purchase_date',
+                    'situation_type', 'next_type']
+    search_fields = ['device_number', 'device_name']
+    list_filter = ['device_type', 'situation_type', 'next_type']
+    list_per_page = 10
+
+
 admin.site.site_header = '广州交投检测用户系统'
 admin.site.site_title = '广州交投检测用户系统'
 admin.site.index_title = '资产管理'
@@ -238,6 +246,7 @@ admin.site.register(models.LogFile, LogFileAdmin)
 admin.site.register(models.Attachment, AttachmentAdmin)
 # admin.site.register(models.Article, ArticleAdmin)
 # admin.site.register(models.ReadNum, ReadNumAdmin)
+admin.site.register(models.DeviceList, DeviceListAdmin)
 
 
 """新增测试功能"""
