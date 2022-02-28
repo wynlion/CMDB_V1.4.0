@@ -53,9 +53,15 @@ class VehicleUseAdmin(admin.ModelAdmin):
     list_per_page = 10
 
 
+class VehicleApproveAdmin(admin.ModelAdmin):
+    list_display = ['user_name', 'car_number', 'approve_or_not']
+    list_per_page = 20
+
+
 admin.site.register(models.Test, TestAdmin)
 admin.site.register(models.AllProjects, AllProjectsAdmin)
 admin.site.register(models.Member, MemberAdmin)
 admin.site.register(models.Driver, DriverAdmin)
 admin.site.register(models.VehicleUse, VehicleUseAdmin)
+admin.site.register(models.VehicleApprove, VehicleApproveAdmin)
 

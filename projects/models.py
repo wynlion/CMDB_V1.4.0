@@ -100,7 +100,7 @@ class Driver(models.Model):
 
 
 class VehicleUse(models.Model):
-    """用车记录"""
+    """用车申请"""
 
     project_type_choice = (
         ('bridge', '桥梁项目'),
@@ -112,11 +112,29 @@ class VehicleUse(models.Model):
     project_type = models.CharField(choices=project_type_choice, max_length=64, default='bridge', verbose_name='项目类型')
     project_name = models.CharField(max_length=64, unique=False, default='', verbose_name='出车项目')  # 具体项目名称，不唯一
     destination = models.CharField(max_length=64, unique=False, default='', verbose_name='出车目的地')
-    charge_person = models.CharField(max_length=8, unique=False, default='', verbose_name='用车人')
+    charge_person = models.CharField(max_length=64, unique=False, default='', verbose_name='用车人')
+    date = models.DateField(null=True, blank=True, verbose_name="用车时间")
 
     def __str__(self):
-        return self.project_type_choice
+        return '%s-%s-%s-%s-%s' % (self.get_project_type_display(), self.project_name, self.destination,
+                                   self.charge_person, self.date)
 
     class Meta:
-        verbose_name = '用车使用记录'
-        verbose_name_plural = '用车使用记录'
+        verbose_name = '用车申请'
+        verbose_name_plural = '用车申请'
+
+
+class VehicleApprove(models.Model):
+    """用车审批"""
+
+    user_name = models.OneToOneField('VehicleUse', on_delete=models.CASCADE)
+    car_number = models.CharField(max_length=64, unique=False, default='', verbose_name='车牌号')
+    approve_or_not = models.BooleanField('是否批车', default=False)
+
+    def __str__(self):
+        return '用车使用记录'
+
+    class Meta:
+        verbose_name = '用车审批'
+        verbose_name_plural = '用车审批'
+
